@@ -62,6 +62,14 @@ public class HytaleUsers {
         }
 
         String lastCheckpoint = readCheckpoint();
+        
+        File dir = new File("data");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        COOKIE = readCookie();
+        
         if (COOKIE == null) {
             System.err.println("""
             [SETUP REQUIRED]
@@ -89,13 +97,6 @@ public class HytaleUsers {
             System.exit(0);
             return;
         }
-        
-        File dir = new File("data");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        COOKIE = readCookie();
 
         if (THREADS * 1000 / DELAY_MS > 3) {
             System.err.println("[ERROR] Too many requests per second. You will get rate limited by Cloudflare.");
