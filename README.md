@@ -3,7 +3,7 @@ Small Java project that can be used to locate all available **Hytale usernames**
 
 ## Usage
 
-`java -jar HytaleUsers-1.2.0.jar [params]`
+`java -jar HytaleUsers-1.1.1.jar [params]`
 
 ## Parameters
 
