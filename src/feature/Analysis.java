@@ -1,3 +1,4 @@
+package feature;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -5,14 +6,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Analysis {
-	private String OUTPUT_FILE;
+import util.Config;
 
-	public Analysis(String OUTPUT_FILE) {
-		this.OUTPUT_FILE = OUTPUT_FILE;
-	}
-	
-	public void alphabeticAnalysis() throws FileNotFoundException {
+public class Analysis {
+	public static void alphabeticAnalysis() throws FileNotFoundException {
 		ArrayList<String> availableUsernames = readOutput();
 		if (availableUsernames == null || availableUsernames.isEmpty()) {
 			System.out.println("No available usernames found.");
@@ -29,7 +26,7 @@ public class Analysis {
 		alphabetic.close();
 	}
 	
-	public void alphaUnderscoreAnalysis() throws FileNotFoundException {
+	public static void alphaUnderscoreAnalysis() throws FileNotFoundException {
 		ArrayList<String> availableUsernames = readOutput();
 		if (availableUsernames == null || availableUsernames.isEmpty()) {
 			System.out.println("No available usernames found.");
@@ -67,9 +64,9 @@ public class Analysis {
 		return true;
     }
     
-    private ArrayList<String> readOutput() {
+    private static ArrayList<String> readOutput() {
     	ArrayList<String> usernames = new ArrayList<>();
-        File file = new File(this.OUTPUT_FILE);
+        File file = new File(Config.OUTPUT_FILE);
         if (!file.exists()) return null;
 
         try (Scanner fileIn = new Scanner(file)) {
