@@ -37,7 +37,6 @@ public class HytaleUsers {
     private static String COOKIE;
     // ==========================================
 
-    @SuppressWarnings("CallToPrintStackTrace")
     public static void main(String[] args) {
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -53,6 +52,16 @@ public class HytaleUsers {
                 case "--print", "-p" -> {
                     PRINT_RESPONSE = true;
                 }
+                case "--analysis", "-a" -> {
+					Analysis analysis = new Analysis(OUTPUT_FILE);
+					try {
+						analysis.alphabeticAnalysis();
+						analysis.alphaUnderscoreAnalysis();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					System.exit(0);
+				}
                 case "--help", "-h" -> {
                     printHelp();
                     System.exit(0);
@@ -228,7 +237,6 @@ public class HytaleUsers {
         return response.toString();
     }
 
-    @SuppressWarnings("CallToPrintStackTrace")
     private static void saveCheckpoint(String username) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CHECKPOINT_FILE))) {
             if (username != null) {
@@ -244,7 +252,6 @@ public class HytaleUsers {
         }
     }
 
-    @SuppressWarnings("CallToPrintStackTrace")
     private static String readCheckpoint() {
         File file = new File(CHECKPOINT_FILE);
         if (!file.exists()) return null;
@@ -261,7 +268,6 @@ public class HytaleUsers {
         return null;
     }
 
-    @SuppressWarnings("CallToPrintStackTrace")
     private static String readCookie() {
         File file = new File(COOKIE_FILE);
         if (!file.exists()) {
@@ -286,7 +292,8 @@ public class HytaleUsers {
     
     private static void printHelp() {
         System.out.println("""
-        HytaleUsers - Username availability checker
+        HytaleUsers 1.1.0
+        Small Java project that can be used to locate all available Hytale usernames
     
         Usage:
           java HytaleUsers [options]
@@ -296,6 +303,7 @@ public class HytaleUsers {
           -m, --max <n>       Maximum username length to check (default: 3)
           -d, --delay <ms>    Delay between batches in milliseconds (default: 5000)
           -p, --print         Print raw API responses
+          -a, --analysis      Perform analysis on found usernames
           -h, --help          Show this help message and exit
     
         Notes:

@@ -3,7 +3,7 @@ Small Java project that can be used to locate all available **Hytale usernames**
 
 ## Usage
 
-`java -jar HytaleUsers-1.0.0.jar [params]`
+`java -jar HytaleUsers-1.1.0.jar [params]`
 
 ## Parameters
 
@@ -22,6 +22,10 @@ Delay between batches in milliseconds (default: 5000)
 `-p, --print`
 
 Print raw API responses
+
+`-a, --analysis`
+
+Perform analysis on found usernames
 
 `-h, --help`
 
