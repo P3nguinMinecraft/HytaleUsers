@@ -1,7 +1,5 @@
 package feature;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +12,7 @@ import java.util.concurrent.Future;
 
 import util.Config;
 import util.IOManager;
-import util.Paths;
+import util.StringUtils;
 
 public class SearchManager {
 	public static void init() {
@@ -35,7 +33,7 @@ public class SearchManager {
 	            while (iterator.hasNext()) {
 	                String username = iterator.next();
 	
-	                if (lastCheckpoint != null && username.compareTo(lastCheckpoint) <= 0) {
+	                if (lastCheckpoint != null && StringUtils.compare(username, lastCheckpoint) <= 0) {
 	                    continue;
 	                }
 	                
