@@ -2,9 +2,9 @@
 import java.io.IOException;
 
 import feature.Analysis;
-import feature.Search;
+import feature.SearchManager;
 import util.Config;
-import util.FileManager;
+import util.IOManager;
 
 public class HytaleUsers {
     public static void main(String[] args) {
@@ -22,6 +22,9 @@ public class HytaleUsers {
                 case "--print", "-p" -> {
                     Config.PRINT_RESPONSE = true;
                 }
+                case "--check", "-c" -> {
+					Config.RECHECK_EXISTING = true;
+				}
                 case "--analysis", "-a" -> {
 					try {
 						Analysis.alphabeticAnalysis();
@@ -39,7 +42,7 @@ public class HytaleUsers {
             }
         }
 
-        Config.COOKIE = FileManager.readCookie();
+        Config.COOKIE = IOManager.readCookie();
         
         if (Config.COOKIE == null) {
             System.err.println("""
@@ -75,7 +78,7 @@ public class HytaleUsers {
             return;
         }
 
-        Search.init();
+        SearchManager.init();
     }
     
     private static void printHelp() {
@@ -91,6 +94,7 @@ public class HytaleUsers {
           -m, --max <n>       Maximum username length to check (default: 3)
           -d, --delay <ms>    Delay between batches in milliseconds (default: 5000)
           -p, --print         Print raw API responses
+          -c, --check         Re-check existing usernames in the output file
           -a, --analysis      Perform analysis on found usernames
           -h, --help          Show this help message and exit
     

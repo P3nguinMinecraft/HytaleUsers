@@ -1,22 +1,19 @@
 package feature;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import util.Config;
+import util.IOManager;
+import util.Paths;
 
 public class Analysis {
 	public static void alphabeticAnalysis() throws FileNotFoundException {
-		ArrayList<String> availableUsernames = readOutput();
+		ArrayList<String> availableUsernames = IOManager.readOutput();
 		if (availableUsernames == null || availableUsernames.isEmpty()) {
 			System.out.println("No available usernames found.");
 			return;
 		}
 
-		PrintWriter alphabetic = new PrintWriter(new File("data/alphabetic_usernames.txt"));
+		PrintWriter alphabetic = new PrintWriter(Paths.ALPHABETIC_FILE);
 		for (String username : availableUsernames) {
 			if (isAlphabetic(username)) {
 				System.out.println("[ALPHA] " + username);
@@ -27,13 +24,13 @@ public class Analysis {
 	}
 	
 	public static void alphaUnderscoreAnalysis() throws FileNotFoundException {
-		ArrayList<String> availableUsernames = readOutput();
+		ArrayList<String> availableUsernames = IOManager.readOutput();
 		if (availableUsernames == null || availableUsernames.isEmpty()) {
 			System.out.println("No available usernames found.");
 			return;
 		}
 		
-		PrintWriter alphaunderscore = new PrintWriter(new File("data/alphaunderscore_usernames.txt"));
+		PrintWriter alphaunderscore = new PrintWriter(Paths.ALPHA_UNDERSCORE_FILE);
 		for (String username : availableUsernames) {
 			if (isAlphaUnderscore(username)) {
 				System.out.println("[ALPHAUNDERSCORE] " + username);
@@ -62,21 +59,5 @@ public class Analysis {
 			return false;
 		}
 		return true;
-    }
-    
-    private static ArrayList<String> readOutput() {
-    	ArrayList<String> usernames = new ArrayList<>();
-        File file = new File(Config.OUTPUT_FILE);
-        if (!file.exists()) return null;
-
-        try (Scanner fileIn = new Scanner(file)) {
-            while (fileIn.hasNext()) {
-            	String user = fileIn.next();
-                usernames.add(user);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return usernames;
     }
 }
